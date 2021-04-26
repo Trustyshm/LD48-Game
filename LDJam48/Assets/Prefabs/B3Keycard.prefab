@@ -248,9 +248,11 @@ GameObject:
   - component: {fileID: 6168345767732272986}
   - component: {fileID: 8250219045050624912}
   - component: {fileID: 4417094124012567892}
+  - component: {fileID: 5928779470095188790}
+  - component: {fileID: 6403807884222032298}
   m_Layer: 0
   m_Name: B3Keycard
-  m_TagString: Untagged
+  m_TagString: Keycard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -335,3 +337,29 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.02, y: 0.019999998, z: 0.0002453122}
   m_Center: {x: 0, y: -8.715241e-19, z: 0.0001226561}
+--- !u!114 &5928779470095188790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7601608821614053957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe800956dca0394cae251dee8271a8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keycardInventory: {fileID: 11400000, guid: 18f33621283b12449910dc2068bfa068, type: 2}
+  keycardNumber: 3
+--- !u!122 &6403807884222032298
+Halo:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7601608821614053957}
+  m_Enabled: 1
+  m_Color:
+    serializedVersion: 2
+    rgba: 4284347218
+  m_Size: 0.24

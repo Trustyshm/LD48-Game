@@ -37,11 +37,6 @@ public class KeycardInventoryManager : MonoBehaviour
         HandleKeycards();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void HandleKeycards()
     {
@@ -53,6 +48,7 @@ public class KeycardInventoryManager : MonoBehaviour
                 keycard.SetActive(false);
             }
         }
+
         if (keycardInventory.KeycardOne)
         {
             noKeycards.SetActive(false);

@@ -51,6 +51,18 @@ public class KeycardButtonController : MonoBehaviour
         {
             elevatorMainScreenUI.SecondSwipe();
         }
+        if (keycardNumber == 3)
+        {
+            elevatorMainScreenUI.ThirdSwipe();
+        }
+        if (keycardNumber == 4)
+        {
+            elevatorMainScreenUI.FourthSwipe();
+        }
+        if (keycardNumber == 5)
+        {
+            elevatorMainScreenUI.FifthSwipe();
+        }
         firstPersonLook.isActive = true;
         playerMovement.isActive = true;
         pistolManager.enabled = true;

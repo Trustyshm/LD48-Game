@@ -245,9 +245,12 @@ GameObject:
   - component: {fileID: 7076710128429846783}
   - component: {fileID: 6168345767732272986}
   - component: {fileID: 8250219045050624912}
+  - component: {fileID: 494257164475981023}
+  - component: {fileID: 6013441871049973385}
+  - component: {fileID: 6219034357028969681}
   m_Layer: 0
   m_Name: B1Keycard
-  m_TagString: Untagged
+  m_TagString: Keycard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -319,3 +322,42 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &494257164475981023
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7601608821614053957}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.02, y: 0.019999998, z: 0.0002453122}
+  m_Center: {x: 0, y: -8.715241e-19, z: 0.0001226561}
+--- !u!114 &6013441871049973385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7601608821614053957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe800956dca0394cae251dee8271a8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keycardInventory: {fileID: 11400000, guid: 18f33621283b12449910dc2068bfa068, type: 2}
+  keycardNumber: 1
+--- !u!122 &6219034357028969681
+Halo:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7601608821614053957}
+  m_Enabled: 1
+  m_Color:
+    serializedVersion: 2
+    rgba: 4294901958
+  m_Size: 0.24

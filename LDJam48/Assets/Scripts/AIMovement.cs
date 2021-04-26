@@ -105,13 +105,18 @@ public class AIMovement : MonoBehaviour
         //Melee Animation
         corruptedAnimator.SetTrigger("Attack");
         doingMelee = true;
-        StartCoroutine(MeleeDelay());
+        //StartCoroutine(MeleeDelay());
  
+    }
+
+    public void MeleePassthrough()
+    {
+        StartCoroutine(MeleeDelay());
     }
 
     IEnumerator MeleeDelay()
     {
-        yield return new WaitForSeconds(0.5f);
+        //yield return new WaitForSeconds(1.8f);
 
 
 

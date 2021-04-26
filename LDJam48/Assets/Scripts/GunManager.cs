@@ -79,11 +79,19 @@ public class GunManager : MonoBehaviour
                 Instantiate(bloodImpact, hit.point, Quaternion.LookRotation(hit.normal));
                 if (hit.rigidbody != null)
                 {
-                    hit.rigidbody.AddForce(-hit.normal * impactForce);
+                  //  hit.rigidbody.AddForce(-hit.normal * impactForce);
                 }
             }
+            CyclopsHealth enemyBlob = hit.transform.GetComponent<CyclopsHealth>();
+            if (enemyBlob != null)
+            {
+                enemyBlob.TakeDamage(gunStats.gunDamage);
 
-            
+                Instantiate(bloodImpact, hit.point, Quaternion.LookRotation(hit.normal));
+
+            }
+
+
         }
     }
 
