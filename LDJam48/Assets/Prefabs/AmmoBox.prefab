@@ -237,4 +237,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAmmo: {fileID: 11400000, guid: 6271ec07035a1bc4ebc098b14ae57fd6, type: 2}
-  ammoAmount: 5
+  ammoAmount: 8

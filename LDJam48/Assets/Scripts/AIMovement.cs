@@ -23,14 +23,33 @@ public class AIMovement : MonoBehaviour
 
     private bool notDead;
 
+    public bool isCreeper;
+
+    public AudioSource audioSource;
+    public AudioClip meleeSound;
+
+    private AudioSource myAudio;
+    public AudioClip moanOne;
+    public AudioClip moanTwo;
+    public AudioClip moanThree;
+
+    public bool isSlime;
+    public AudioClip slimeVoice;
+
+    private bool doOnce;
+
+    private float timerVoice;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        myAudio = this.gameObject.GetComponent<AudioSource>();
         notDead = true;
         enemyHealth = GetComponent<EnemyHealth>();
         thisNavAgent = GetComponent<NavMeshAgent>();
         playerTarget = GameObject.FindGameObjectWithTag("thePlayer").transform;
+        timerVoice = Random.Range(6, 20);
     }
 
     // Update is called once per frame
@@ -43,10 +62,39 @@ public class AIMovement : MonoBehaviour
             thisNavAgent.speed = 0;
             this.GetComponent<Rigidbody>().velocity = Vector3.zero;
             this.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            this.GetComponent<CapsuleCollider>().enabled = false;
             thisNavAgent.isStopped = true;
             corruptedAnimator.SetTrigger("Die");
             notDead = false;
         }
+
+        /*
+        if (enemyHealth.enemyHealth > 0)
+        {
+            timerVoice -= Time.deltaTime;
+            if(timerVoice <= 0)
+            {
+                float line = Random.value;
+
+                if (line < 0.33)
+                {
+                    myAudio.PlayOneShot(moanOne);
+                }
+                if(line >= 0.33 && line < 0.66)
+                {
+                    myAudio.PlayOneShot(moanTwo);
+                }
+                if(line >= 0.66)
+                {
+                    myAudio.PlayOneShot(moanThree);
+                }
+                Random.InitState(System.DateTime.Now.Millisecond);
+                timerVoice = Random.Range(6, 20);
+
+            }
+
+     
+        }*/
 
         if (notDead)
         {
@@ -54,14 +102,14 @@ public class AIMovement : MonoBehaviour
 
             if (!doingMelee)
             {
-                if (Vector3.Distance(playerTarget.position, transform.position) > attackRadius && !activePatrol)
+                if (Vector2.Distance(new Vector2(playerTarget.position.x, playerTarget.position.z), new Vector2(transform.position.x, transform.position.z)) > attackRadius && !activePatrol)
                 {
                     patrolingArea = true;
                     activePatrol = true;
                     PatrolArea();
                 }
 
-                if (Vector3.Distance(playerTarget.position, transform.position) <= attackRadius)
+                if (Vector2.Distance(new Vector2(playerTarget.position.x, playerTarget.position.z), new Vector2(transform.position.x, transform.position.z)) <= attackRadius)
                 {
                     patrolingArea = false;
                     attackRadius = 50;
@@ -69,6 +117,11 @@ public class AIMovement : MonoBehaviour
                     if (Vector3.Distance(playerTarget.position, transform.position) <= meleeRadius)
                     {
                         AttackPlayer();
+                        if (isSlime && !doOnce)
+                        {
+                            audioSource.PlayOneShot(slimeVoice);
+                            doOnce = true;
+                        }
                     }
                 }
 
@@ -103,7 +156,26 @@ public class AIMovement : MonoBehaviour
     {
         //Debug.Log("Attacking Player");
         //Melee Animation
-        corruptedAnimator.SetTrigger("Attack");
+        if (isCreeper)
+        {
+            int attackType = Random.Range(1, 2);
+            if (attackType == 1)
+            {
+                corruptedAnimator.SetTrigger("Attack");
+                //audioSource.PlayOneShot(meleeSound);
+            }
+            if (attackType == 2)
+            {
+                corruptedAnimator.SetTrigger("Attack2");
+                //audioSource.PlayOneShot(meleeSound);
+            }
+        }
+        else {
+            corruptedAnimator.SetTrigger("Attack");
+            //audioSource.PlayOneShot(meleeSound);
+        }
+
+        
         doingMelee = true;
         //StartCoroutine(MeleeDelay());
  
@@ -121,12 +193,15 @@ public class AIMovement : MonoBehaviour
 
 
         RaycastHit hit;
-        if (Physics.Raycast(this.transform.position, transform.TransformDirection(Vector3.forward), out hit, 5f))
+        if (Physics.Raycast(this.transform.position, transform.forward, out hit, 5f))
         {
-            Debug.Log("Damage!");
+            
+            //Debug.Log("Damage from: " + transform.name) ;
+            Debug.Log(hit.transform.name);
             PlayerHealthController playerHealth = hit.transform.GetComponent<PlayerHealthController>();
             if (playerHealth != null)
             {
+                Debug.Log("Passing");
                 playerHealth.TakeDamage(enemyDamage);
 
                 Instantiate(bloodImpact, hit.point, Quaternion.LookRotation(hit.normal));

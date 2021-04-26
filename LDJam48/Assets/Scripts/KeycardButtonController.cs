@@ -18,6 +18,10 @@ public class KeycardButtonController : MonoBehaviour
     public FirstPersonMovement playerMovement;
     public GunManager pistolManager;
 
+    public AudioSource audioSource;
+    public AudioClip buttonPress;
+    public AudioClip cardSwipe;
+
     public void MouseOver()
     {
         hoverBackground.GetComponent<Image>().enabled = true;
@@ -36,6 +40,7 @@ public class KeycardButtonController : MonoBehaviour
     IEnumerator ClickedButton()
     {
         //Play Click Sound
+        audioSource.PlayOneShot(buttonPress);
         hoverBackground.GetComponent<Image>().color = Color.green;
         yield return new WaitForSeconds(0.2f);
         hoverBackground.GetComponent<Image>().color = Color.red;
@@ -68,6 +73,7 @@ public class KeycardButtonController : MonoBehaviour
         pistolManager.enabled = true;
         hoverBackground.GetComponent<Image>().color = Color.green;
         keycardInventory.SetActive(false);
+        audioSource.PlayOneShot(cardSwipe);
     }
 
 }

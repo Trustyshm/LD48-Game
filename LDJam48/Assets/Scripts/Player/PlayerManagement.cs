@@ -23,11 +23,30 @@ public class PlayerManagement : MonoBehaviour
 
     private List<int> levelsUsed = new List<int>();
 
+    public EnemyController enemyController;
+
+    private bool activateOnce;
+    public AIMovement caged1;
+    public AIMovement caged2;
+    public AIMovement caged3;
+
+    public AudioSource audioSource;
+    public AudioClip buttonPress;
+    public AudioClip pickupItem;
+    public AudioClip elevator2;
+    public AudioClip elevator6;
+    public AudioClip elevator10;
+    public AudioClip elevator11;
+    public AudioClip elevatorOpen;
+    public AudioClip elevatorClose;
+    public AudioClip lockerSound;
+    public AudioClip barsOpen;
 
     // Start is called before the first frame update
     void Start()
     {
         pressingButton = false;
+        Time.timeScale = 1;
     }
 
     // Update is called once per frame
@@ -79,6 +98,7 @@ public class PlayerManagement : MonoBehaviour
                 itemInteractUI.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.E))
                 {
+                    audioSource.PlayOneShot(pickupItem);
                     hit.transform.GetComponent<KeycardItemManager>().PickUpKeycard();
                     itemInteractUI.SetActive(false);
                 }
@@ -90,6 +110,7 @@ public class PlayerManagement : MonoBehaviour
                 itemInteractUI.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.E))
                 {
+                    audioSource.PlayOneShot(pickupItem);
                     hit.transform.GetComponent<AmmoItemManager>().PickUpAmmo();
                     itemInteractUI.SetActive(false);
                 }
@@ -101,6 +122,7 @@ public class PlayerManagement : MonoBehaviour
                 itemInteractUI.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.E))
                 {
+                    audioSource.PlayOneShot(pickupItem);
                     hit.transform.GetComponent<HealthItemManager>().PickUpHealth();
                     itemInteractUI.SetActive(false);
                 }
@@ -112,6 +134,7 @@ public class PlayerManagement : MonoBehaviour
                 itemInteractUI.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.E))
                 {
+                    audioSource.PlayOneShot(lockerSound);
                     hit.transform.parent.GetComponentInParent<Animator>().SetTrigger("Open");
                 }
             }
@@ -122,7 +145,16 @@ public class PlayerManagement : MonoBehaviour
                 itemInteractUI.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.E))
                 {
+                    audioSource.PlayOneShot(buttonPress);
+                    audioSource.PlayOneShot(barsOpen);
                     hit.transform.parent.GetComponentInParent<Animator>().SetTrigger("Open");
+                    if (!activateOnce)
+                    {
+                        caged1.enabled = true;
+                        caged2.enabled = true;
+                        caged3.enabled = true;
+                        activateOnce = true;
+                    }
                 }
             }
 
@@ -144,6 +176,7 @@ public class PlayerManagement : MonoBehaviour
         //Play Button Pressed Sound
 
         elevatorDoors.SetTrigger("CloseDoor");
+        audioSource.PlayOneShot(elevatorClose);
         currentFloorUI.text = "Moving To: B" + buttonNumber;
         
         
@@ -177,26 +210,51 @@ public class PlayerManagement : MonoBehaviour
 
         if (buttonNumber == 1 || buttonNumber == 2)
         {
+            audioSource.PlayOneShot(elevator2);
             yield return new WaitForSeconds(2.5f);
         }
         if (buttonNumber == 3)
         {
+            audioSource.PlayOneShot(elevator6);
             yield return new WaitForSeconds(6.0f);
         }
         if (buttonNumber == 4)
         {
+            audioSource.PlayOneShot(elevator10);
             yield return new WaitForSeconds(10.2f);
         }
 
         if (buttonNumber == 5)
         {
+            audioSource.PlayOneShot(elevator11);
             yield return new WaitForSeconds(11.6f);
         }
+        if (buttonNumber == 1)
+        {
+            enemyController.ActivateB1();
+        }
+        if (buttonNumber == 2)
+        {
+            enemyController.ActivateB2();
+        }
+        if (buttonNumber == 3)
+        {
+            enemyController.ActivateB3();
+        }
+        if (buttonNumber == 4)
+        {
+            enemyController.ActivateB4();
+        }
+        if (buttonNumber == 5)
+        {
+            enemyController.ActivateB5();
+        }
 
-            currentFloorUI.text = "Current Floor: B" + buttonNumber;
+        currentFloorUI.text = "Current Floor: B" + buttonNumber;
             elevatorDoors.SetTrigger("OpenDoor");
-        
-        
+        audioSource.PlayOneShot(elevatorOpen);
+
+
     }
     
     IEnumerator PressingAButton()

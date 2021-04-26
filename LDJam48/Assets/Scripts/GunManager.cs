@@ -20,6 +20,10 @@ public class GunManager : MonoBehaviour
     private float nextFireTime = 0f;
     private float nextMeleeTime = 0f;
 
+    public AudioSource audioSource;
+    public AudioClip gunShot;
+    public AudioClip meleeHit;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -67,6 +71,7 @@ public class GunManager : MonoBehaviour
             gunSlide.SetTrigger("Activate");
         }
         muzzleFlash.Play();
+        audioSource.PlayOneShot(gunShot);
         gunStats.currentAmmo--;
         RaycastHit hit;
         if(Physics.Raycast(fpsCamera.transform.position, fpsCamera.transform.forward, out hit, gunStats.gunRange))
@@ -99,6 +104,7 @@ public class GunManager : MonoBehaviour
     {
         if (!isAR)
         {
+
             gunRecoil.SetTrigger("Melee");
         }
         StartCoroutine(MeleeDelay());
@@ -114,6 +120,7 @@ public class GunManager : MonoBehaviour
             EnemyHealth enemy = hit.transform.GetComponent<EnemyHealth>();
             if (enemy != null)
             {
+                audioSource.PlayOneShot(meleeHit);
                 enemy.TakeDamage(gunStats.gunDamage);
 
                 Instantiate(bloodImpact, hit.point, Quaternion.LookRotation(hit.normal));

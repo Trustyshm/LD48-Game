@@ -6,6 +6,9 @@ public class LockerDoor : MonoBehaviour
 {
 
     public Animator lockerDoorAnim;
+    public AudioSource audioSource;
+    public AudioClip doorOpen;
+    public AudioClip doorClose;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +27,7 @@ public class LockerDoor : MonoBehaviour
         if (other.CompareTag("thePlayer") || other.CompareTag("Enemy"))
         {
             lockerDoorAnim.SetTrigger("Open");
+            audioSource.PlayOneShot(doorOpen);
         }
     }
 
@@ -32,6 +36,7 @@ public class LockerDoor : MonoBehaviour
         if (other.CompareTag("thePlayer") || other.CompareTag("Enemy"))
         {
             lockerDoorAnim.SetTrigger("Close");
+            audioSource.PlayOneShot(doorClose);
         }
     }
 }

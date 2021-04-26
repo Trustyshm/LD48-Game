@@ -5,6 +5,9 @@ using UnityEngine;
 public class AnimatorPassthrough : MonoBehaviour
 {
 
+    public AudioSource audioSource;
+    public AudioClip meleeSound;
+
     public AIMovement movementScript;
     // Start is called before the first frame update
     void Start()
@@ -22,6 +25,12 @@ public class AnimatorPassthrough : MonoBehaviour
     public void DoAttack()
     {
         movementScript.MeleePassthrough();
+        audioSource.PlayOneShot(meleeSound);
+    }
+
+    public void StopEyes()
+    {
+        GetComponentInChildren<Animator>().SetTrigger("StopEyes");
     }
 
 }
